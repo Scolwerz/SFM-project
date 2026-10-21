@@ -51,7 +51,22 @@ Az autószervítben lévő alkatrészek leltározásában is segítséget nyújt
 **MÉG NICNS IMPLEMENTÁLVA**
 
 ## Alkalmazás futtatása
-**MÉG NEM ELÉRHETŐ**
+A gyökér könyvtárból:
+   ```bash
+   docker compose up --build
+   ```
+A frontend a `http://localhost:3000`, a backend a `http://localhost:8080`, a MySQL adatbázis pedig a `localhost:3306` érhető el.
+
+### Leállítás:
+```bash
+docker compose down
+```
+
+The `mysql_data` named volume retains database data. To remove it too, run:
+```bash
+docker compose down -v
+```
+
 
 ### Portok:
 |   Container   |   Port    |
