@@ -15,7 +15,7 @@
 
 **Build:** Maven
 
-**Deploy:** Docker, docker-compose *(tervezett megoldás)*
+**Deploy:** Docker
 
 ## Leírás
 Egy olyan webalkalmazás, amely egyszerűbbé és átláthatóbbá teszi az autószervizek időpontfoglalási és munkaszervezési folyamatait.
@@ -43,9 +43,6 @@ Az autószervítben lévő alkatrészek leltározásában is segítséget nyújt
 - Felhasználók és jogosultságok kezelése.
 - A szerviz munkafolyamatainak áttekintése.
 
-
-## API endpointok
-**MÉG NICNS IMPLEMENTÁLVA**
 
 ## Adatbázis-struktúra
 **MÉG NICNS IMPLEMENTÁLVA**
