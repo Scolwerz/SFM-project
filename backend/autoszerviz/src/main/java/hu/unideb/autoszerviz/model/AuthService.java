@@ -1,7 +1,7 @@
-package huser.unideb.autoszerviz.model;
+package hu.unideb.autoszerviz.model;
 
-import huser.unideb.autoszerviz.entity.*;
-import huser.unideb.autoszerviz.repository.*;
+import hu.unideb.autoszerviz.entity.*;
+import hu.unideb.autoszerviz.repository.*;
 import jakarta.servlet.http.HttpSession;
 import java.time.*;
 import java.util.*;
@@ -58,10 +58,10 @@ public class AuthService {
         String email = body.getOrDefault("email", "");
         String pass = body.getOrDefault("password", "");
         User user = users.findByEmailIgnoreCase(email)
-            .filter(a -> a.active && encoder.matches(password, a.passwordHash))
+            .filter(a -> a.active && encoder.matches(pass, a.passwordHash))
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Hibás e-mail cím vagy jelszó."));
 
-        s.setAttribute("uid", user.id);
+        session.setAttribute("uid", user.id);
         return account(user);
     }
 

@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 class AuthServiceTest {
     UserRepository users = mock(UserRepository.class);
     BCryptPasswordEncoder encoder = mock(BCryptPasswordEncoder.class);
-    ModelAccessService access = mock(ModelAccessService.class);
+    AccessService access = mock(AccessService.class);
     HttpSession session = mock(HttpSession.class);
     AuthService service = new AuthService(users, encoder, access);
     User customer;

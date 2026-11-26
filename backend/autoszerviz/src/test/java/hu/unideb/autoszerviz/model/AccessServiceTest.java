@@ -10,9 +10,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
-class ModelAccessServiceTest {
+class AccessServiceTest {
     UserRepository users = mock(UserRepository.class);
-    ModelAccessService access = new ModelAccessService(users);
+    AccessService access = new AccessService(users);
     HttpSession session = mock(HttpSession.class);
 
     @Test
