@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class VehicleService {
-
     private final AccessService access;
     private final BrandRepository brands;
     private final VehicleModelRepository models;
@@ -46,10 +45,17 @@ public class VehicleService {
         User user = access.currentUser(session);
         access.requireRole(user, Role.CUSTOMER);
 
+        Long brandId = Long.valueOf(body.get("brandId").toString());
+        Long modelId = Long.valueOf(body.get("modelId").toString());
+
         Vehicle vehicle = new Vehicle();
         vehicle.owner = user;
-        vehicle.brand = brands.findById(Long.valueOf(body.get("brandId").toString())).orElseThrow();
-        vehicle.model = models.findById(Long.valueOf(body.get("modelId").toString())).orElseThrow();
+        vehicle.brand = brands
+                .findById(brandId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "A kiválasztott márka nem található."));
+        vehicle.model = models
+                .findById(modelId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "A kiválasztott modell nem található."));
         if (!vehicle.model.brand.id.equals(vehicle.brand.id))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A modell nem ehhez a márkához tartozik.");
         vehicle.year = Integer.parseInt(body.get("year").toString());
@@ -63,9 +69,10 @@ public class VehicleService {
     public void deleteVehicle(Long id, HttpSession session) {
         User user = access.currentUser(session);
         access.requireRole(user, Role.CUSTOMER);
+
         Vehicle vehicle = vehicles
-            .findByIdAndOwnerIdAndActiveTrue(id, user.id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .findByIdAndOwnerIdAndActiveTrue(id, user.id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         vehicle.active = false;
         vehicles.save(vehicle);
     }
